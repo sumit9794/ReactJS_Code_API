@@ -9,7 +9,7 @@ const ProjectList = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProjects, setTotalProjects] = useState(0);
-  const limit = 4; // projects per page
+  const limit = 4;
   const navigate = useNavigate();
 
   // Fetch projects with search & pagination
@@ -26,12 +26,13 @@ const ProjectList = () => {
         params: { search: searchTerm, page, limit },
       });
 
+      // Normalize response
       const data = Array.isArray(response.data)
         ? response.data
-        : response.data.projects;
+        : response.data.projects || [];
 
-      setProjects(data || []);
-      setTotalProjects(response.data.total || 0); // total count for pagination
+      setProjects(data);
+      setTotalProjects(response.data.total || data.length);
     } catch (err) {
       console.error('Error fetching projects:', err);
     } finally {
@@ -39,12 +40,10 @@ const ProjectList = () => {
     }
   };
 
-  // Load projects initially & on search or page change
   useEffect(() => {
     const delay = setTimeout(() => {
       fetchProjects(search, currentPage);
-    }, 300); // 300ms debounce
-
+    }, 300);
     return () => clearTimeout(delay);
   }, [search, currentPage]);
 
@@ -62,8 +61,10 @@ const ProjectList = () => {
   const handleDelete = async (projectId) => {
     if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
-      await axios.delete(`http://localhost:8000/projects/${projectId}`, { withCredentials: true });
-      setProjects((prev) => prev.filter((p) => p.id !== projectId));
+      await axios.delete(`http://localhost:8000/projects/${projectId}`, {
+        withCredentials: true,
+      });
+      setProjects((prev) => prev.filter((p) => p._id !== projectId));
     } catch (err) {
       alert(err.response?.data?.message || 'Failed to delete project');
     }
@@ -85,7 +86,7 @@ const ProjectList = () => {
           </Link>
         </div>
 
-        {/* Search Bar */}
+        {/* Search */}
         <div style={styles.filterContainer}>
           <input
             type="text"
@@ -101,9 +102,9 @@ const ProjectList = () => {
           <p>Loading projects...</p>
         ) : (
           <div style={styles.projectsContainer}>
-            {projects && projects.length > 0 ? (
+            {projects.length > 0 ? (
               projects.map((project) => (
-                <div key={project.id} style={styles.projectCard}>
+                <div key={project._id} style={styles.projectCard}>
                   {project.image && (
                     <img
                       src={`http://localhost:8000${project.image}`}
@@ -118,13 +119,13 @@ const ProjectList = () => {
                   <div style={styles.projectActions}>
                     <button
                       style={styles.editButton}
-                      onClick={() => handleEdit(project.id)}
+                      onClick={() => handleEdit(project._id)}
                     >
                       Edit
                     </button>
                     <button
                       style={styles.deleteButton}
-                      onClick={() => handleDelete(project.id)}
+                      onClick={() => handleDelete(project._id)}
                     >
                       Delete
                     </button>
@@ -191,8 +192,18 @@ const styles = {
     textDecoration: 'none',
     borderRadius: '6px',
   },
-  filterContainer: { display: 'flex', gap: '10px', margin: '20px 0', justifyContent: 'center' },
-  searchInput: { padding: '10px', width: '250px', border: '1px solid #ccc', borderRadius: '6px' },
+  filterContainer: {
+    display: 'flex',
+    gap: '10px',
+    margin: '20px 0',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    padding: '10px',
+    width: '250px',
+    border: '1px solid #ccc',
+    borderRadius: '6px',
+  },
   projectsContainer: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
@@ -207,15 +218,45 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
   },
-  thumbnail: { width: '100%', height: '150px', objectFit: 'cover', borderRadius: '6px', marginBottom: '10px' },
+  thumbnail: {
+    width: '100%',
+    height: '150px',
+    objectFit: 'cover',
+    borderRadius: '6px',
+    marginBottom: '10px',
+  },
   projectTitle: { fontSize: '18px', fontWeight: 'bold' },
   projectDescription: { fontSize: '14px', color: '#777', textAlign: 'center' },
   projectActions: { display: 'flex', gap: '10px', marginTop: '10px' },
-  editButton: { padding: '8px 12px', backgroundColor: '#2196F3', color: '#fff', border: 'none', borderRadius: '6px' },
-  deleteButton: { padding: '8px 12px', backgroundColor: '#f44336', color: '#fff', border: 'none', borderRadius: '6px' },
+  editButton: {
+    padding: '8px 12px',
+    backgroundColor: '#2196F3',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+  },
+  deleteButton: {
+    padding: '8px 12px',
+    backgroundColor: '#f44336',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+  },
   noProjects: { textAlign: 'center', color: '#555' },
-  pagination: { display: 'flex', justifyContent: 'center', marginTop: '20px', gap: '5px', flexWrap: 'wrap' },
-  pageButton: { padding: '8px 12px', borderRadius: '6px', border: '1px solid #ccc', cursor: 'pointer', minWidth: '40px' },
+  pagination: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px',
+    gap: '5px',
+    flexWrap: 'wrap',
+  },
+  pageButton: {
+    padding: '8px 12px',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    cursor: 'pointer',
+    minWidth: '40px',
+  },
 };
 
 export default ProjectList;

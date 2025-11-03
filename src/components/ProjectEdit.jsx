@@ -19,7 +19,7 @@ const ProjectEdit = () => {
     const fetchData = async () => {
       try {
         const userRes = await axios.get('http://localhost:8000/profile', { withCredentials: true });
-        setUserId(userRes.data.user.id);
+        setUserId(userRes.data.user._id);
 
         if (id) {
           const projectRes = await axios.get(`http://localhost:8000/projects/edit/${id}`, { withCredentials: true });

@@ -17,7 +17,8 @@ const ProjectCreate = () => {
     const fetchUserSession = async () => {
       try {
         const res = await axios.get('http://localhost:8000/profile', { withCredentials: true });
-        setUserId(res.data.user.id);
+
+        setUserId(res.data.user._id);
       } catch (err) {
         console.error('Session fetch error:', err);
         setError('User not authenticated');
@@ -33,7 +34,7 @@ const ProjectCreate = () => {
     setError('');
 
     if (!userId) {
-      setError('User not authenticated');
+      setError('User not1 authenticated');
       setLoading(false);
       return;
     }
