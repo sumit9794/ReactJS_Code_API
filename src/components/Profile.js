@@ -80,7 +80,7 @@ export default function Profile() {
             <div style={styles.infoItem}><span style={styles.label}>Name:</span> {user.name}</div>
             <div style={styles.infoItem}><span style={styles.label}>Username:</span> {user.user_name}</div>
             <div style={styles.infoItem}><span style={styles.label}>Email:</span> {user.email}</div>
-            <div style={styles.infoItem}><span style={styles.label}>ID:</span> {user.id}</div>
+            <div style={styles.infoItem}><span style={styles.label}>ID:</span> {user._id}</div>
           </>
         )}
       </main>

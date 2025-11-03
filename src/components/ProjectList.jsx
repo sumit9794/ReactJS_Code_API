@@ -9,7 +9,7 @@ const ProjectList = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProjects, setTotalProjects] = useState(0);
-  const limit = 4;
+  const limit = 3;
   const navigate = useNavigate();
 
   // Fetch projects with search & pagination
