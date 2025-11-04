@@ -16,7 +16,7 @@ export default function Signup() {
 
     try {
       const res = await axios.post(
-        'http://localhost:8000/signup',
+        'https://node-api-products-erq0.onrender.com/signup',
         {
           name,
           user_name: userName, // must match backend

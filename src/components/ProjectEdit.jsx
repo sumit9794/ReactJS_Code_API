@@ -18,11 +18,11 @@ const ProjectEdit = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRes = await axios.get('http://localhost:8000/profile', { withCredentials: true });
+        const userRes = await axios.get('https://node-api-products-erq0.onrender.com/profile', { withCredentials: true });
         setUserId(userRes.data.user._id);
 
         if (id) {
-          const projectRes = await axios.get(`http://localhost:8000/projects/edit/${id}`, { withCredentials: true });
+          const projectRes = await axios.get(`https://node-api-products-erq0.onrender.com/projects/edit/${id}`, { withCredentials: true });
           const projectData = projectRes.data.project;
           setName(projectData.name);
           setDescription(projectData.description);
@@ -56,7 +56,7 @@ const ProjectEdit = () => {
       formData.append('description', description);
       if (thumbnail) formData.append('thumbnail', thumbnail);
 
-      await axios.put(`http://localhost:8000/projects/update/${id}`, formData, {
+      await axios.put(`https://node-api-products-erq0.onrender.com/projects/update/${id}`, formData, {
         withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },
       });
@@ -104,7 +104,7 @@ const ProjectEdit = () => {
               <label style={styles.label}>Current Thumbnail</label>
               {currentThumbnail ? (
                 <img
-                  src={`http://localhost:8000${currentThumbnail}`}
+                  src={`https://node-api-products-erq0.onrender.com${currentThumbnail}`}
                   alt="current thumbnail"
                   style={styles.thumbnail}
                 />

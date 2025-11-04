@@ -10,7 +10,7 @@ export default function Profile() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await axios.get('http://localhost:8000/profile', {
+        const res = await axios.get('https://node-api-products-erq0.onrender.com/profile', {
           withCredentials: true,
         });
         setUser(res.data.user);
@@ -23,7 +23,7 @@ export default function Profile() {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:8000/logout', {}, { withCredentials: true });
+      await axios.post('https://node-api-products-erq0.onrender.com/logout', {}, { withCredentials: true });
       navigate('/login');
     } catch (err) {
       console.error(err);

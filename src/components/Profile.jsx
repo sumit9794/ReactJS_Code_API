@@ -12,7 +12,7 @@ const Profile = () => {
   // Memoize the fetchUser function to prevent unnecessary re-renders
   const fetchUser = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:8000/dashboard', {
+      const res = await axios.get('https://node-api-products-erq0.onrender.com/dashboard', {
         withCredentials: true, // Important for session management (cookie-based)
       });
 
@@ -34,7 +34,7 @@ const Profile = () => {
   // Handle logout functionality
   const handleLogout = async () => {
     try {
-      const res = await axios.post('http://localhost:8000/logout', {}, {
+      const res = await axios.post('https://node-api-products-erq0.onrender.com/logout', {}, {
         withCredentials: true, // Send session cookie to clear the session
       });
       alert(res.data.message); // Optional: Show success message

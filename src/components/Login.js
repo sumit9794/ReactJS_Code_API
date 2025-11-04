@@ -13,7 +13,7 @@ export default function Login() {
 
     try {
       const res = await axios.post(
-        'http://localhost:8000/login', // backend login endpoint
+        'https://node-api-products-erq0.onrender.com/login', // backend login endpoint
         {
           user_name: userName, // must match backend field
           password,

@@ -16,7 +16,7 @@ const ProjectCreate = () => {
   useEffect(() => {
     const fetchUserSession = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/profile', { withCredentials: true });
+        const res = await axios.get('https://node-api-products-erq0.onrender.com/profile', { withCredentials: true });
 
         setUserId(res.data.user._id);
       } catch (err) {
@@ -46,7 +46,7 @@ const ProjectCreate = () => {
       formData.append('userId', userId);
       if (thumbnail) formData.append('thumbnail', thumbnail);
 
-      await axios.post('http://localhost:8000/projects/create', formData, {
+      await axios.post('https://node-api-products-erq0.onrender.com/projects/create', formData, {
         withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },
       });

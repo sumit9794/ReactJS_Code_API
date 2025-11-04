@@ -18,8 +18,8 @@ const ProjectList = () => {
       setLoading(true);
       const endpoint =
         searchTerm.trim() !== ''
-          ? 'http://localhost:8000/projects/search'
-          : 'http://localhost:8000/projects';
+          ? 'https://node-api-products-erq0.onrender.com/projects/search'
+          : 'https://node-api-products-erq0.onrender.com/projects';
 
       const response = await axios.get(endpoint, {
         withCredentials: true,
@@ -50,7 +50,7 @@ const ProjectList = () => {
   // Logout
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:8000/logout', {}, { withCredentials: true });
+      await axios.post('https://node-api-products-erq0.onrender.com/logout', {}, { withCredentials: true });
       navigate('/login');
     } catch (err) {
       console.error('Error logging out:', err);
@@ -61,7 +61,7 @@ const ProjectList = () => {
   const handleDelete = async (projectId) => {
     if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
-      await axios.delete(`http://localhost:8000/projects/${projectId}`, {
+      await axios.delete(`https://node-api-products-erq0.onrender.com/projects/${projectId}`, {
         withCredentials: true,
       });
       setProjects((prev) => prev.filter((p) => p._id !== projectId));
@@ -107,7 +107,7 @@ const ProjectList = () => {
                 <div key={project._id} style={styles.projectCard}>
                   {project.image && (
                     <img
-                      src={`http://localhost:8000${project.image}`}
+                      src={`https://node-api-products-erq0.onrender.com${project.image}`}
                       alt={project.name}
                       style={styles.thumbnail}
                     />
