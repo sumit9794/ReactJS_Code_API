@@ -59,8 +59,23 @@ const Dashboard = () => {
       {user ? (
         <div style={styles.userCard}>
           <p style={styles.userName}>Hello {user.name}</p>
-       
+           <button
+      onClick={() => navigate("/genai/chat")}
+      style={{
+        marginTop: "15px",
+        padding: "10px 18px",
+        background: "#007bff",
+        color: "#fff",
+        border: "none",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
+    >
+      💬 Open AI Assistant
+    </button>
+
         </div>
+        
       ) : (
         <p>No user data found</p>
       )}

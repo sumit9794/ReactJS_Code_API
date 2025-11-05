@@ -8,6 +8,8 @@ import ProjectCreate from './components/ProjectCreate';
 import ProjectList from './components/ProjectList';  // Project creation component (if needed)
 import NotFound from './components/NotFound'; // Optional: 404 page for unmatched routes
 import ProjectEdit from './components/ProjectEdit';
+import GenAIChat from './components/GenAIChat';
+import GenAIImage from './components/GenAIImage';
 
 const App = () => {
   return (
@@ -21,7 +23,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         {/* Route for Profile (Protected Route) */}
         <Route path="/profile" element={<Profile />} />
-        
+      <Route path="/genai/chat" element={<GenAIChat />} />
+         <Route path="/genai/image" element={<GenAIImage />} />
         {/* Route for Project Create */}
         <Route path="/projects" element={<ProjectList />} />
         <Route path="/projects/create" element={<ProjectCreate />} />

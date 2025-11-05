@@ -11,6 +11,8 @@ const Sidebar = ({ handleLogout }) => {
       <ul style={styles.sidebarMenu}>
         <li style={styles.sidebarMenuItem} onClick={() => navigate('/dashboard')}>Home</li>
          <li style={styles.sidebarMenuItem} onClick={() => navigate('/projects')}>Projects</li>
+             <li style={styles.sidebarMenuItem} onClick={() => navigate('/genai/chat')}>GenAIChat</li>
+        <li style={styles.sidebarMenuItem} onClick={() => navigate('/genai/image')}>GenAIImage</li>
         <li style={styles.sidebarMenuItem} onClick={() => navigate('/profile')}>Profile</li>
         
         <li style={styles.sidebarMenuItem} onClick={handleLogout}>Logout</li>
